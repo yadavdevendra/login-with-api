@@ -42,7 +42,7 @@ function Home() {
           console.log(data);
           setError(data.message);
           setActive(false);
-          navigate("/dashboard",{state: data.message});
+          navigate("/dashboard",{replace:true ,state: data.message});
           
         } else {
           setActive(false);

@@ -8,9 +8,7 @@ export const Dashboard = () => {
      const navigate = useNavigate();
      const {state} = useLocation()
      console.log(state);
-function close(){
 
-}
 
   return (
     <div className="das">
@@ -20,7 +18,7 @@ function close(){
         </Frame>}
       </div>
       <h1 style={{ color: "green" }}>Dashboard</h1>
-      <Button onClick={() => navigate(-1)}>Go Back Home</Button>
+      <Button onClick={() => navigate("/",{replace:true})}>Go Back Home</Button>
     </div>
   );
 }
