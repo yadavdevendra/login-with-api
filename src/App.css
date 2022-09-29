@@ -2,9 +2,28 @@
 text-align: center;
 margin-left: 100px;
 width: 80vw;
-height: 100vh;
+height: 150vh;
 }
 .das{
   position: absolute;
   height: 100px;
+}
+.dasbtn{
+display: flex;
+
+}
+
+.dashadd{
+  display: flex;
+}
+.col{
+  display: flex;
+  flex-direction: column;
+}
+/* .heading{
+} */
+.rowperpage{
+  margin: 10px;
+  display: flex;
+ 
 }
