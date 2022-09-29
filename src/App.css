@@ -1,0 +1,10 @@
+.App{
+text-align: center;
+margin-left: 100px;
+width: 80vw;
+height: 100vh;
+}
+.das{
+  position: absolute;
+  height: 100px;
+}
