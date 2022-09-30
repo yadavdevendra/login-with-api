@@ -1,13 +1,29 @@
-import { Select, Grid, TextField, Button } from "@shopify/polaris";
+import {
+  Select,
+  Grid,
+  TextField,
+  Button,
+  Pagination,
+  Stack,
+} from "@shopify/polaris";
 import { useState, useCallback, useEffect } from "react";
 import { Heading } from "./Heading";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Dashboardadd() {
   const [selected, setSelected] = useState([]);
-  const token = `eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiMiIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTY2NDQ3NDI2OSwiaXNzIjoiaHR0cHM6XC9cL2FwcHMuY2VkY29tbWVyY2UuY29tIiwiYXVkIjoiMTAzLjk3LjE4NC4xMDYiLCJ0b2tlbl9pZCI6IjQwNDEzMCJ9.HvKmgPkUl4RsYfNtoVHFLPLYK9kJGOdrUX0i_PDuBelZZfnxHcHuOMmy0mWykXYiMZ3KBTAO38Oy-u4ftbBGy6ucf8SRdinQWSXG6GY-JMPUxiFXp6i9vmapXwLfrJF1IphBlqWIT3SWyrhlRF7SoifQMcF_jcH42vvkYzENchT8orGoYFZy8cv82vpwDsGHmQ1zIgkO2LmTFFc1KBcHQOiCXOABPCYOc_Fg4Uw6hafw0P5yYZjef7LGSYfEB4rUDO8li6lOxt67Xcnk3Xwu3fqKUDcxEhBwN1yrKU6Ih-HfRsSn4AY_aV5nDoI8i-eOw0zBESBhwiQbRXQiJrub3A`;
+  const [perpage, setPerpage]=useState(1)
+  const { state } = useLocation();
+  // console.log("token", state.token);
+  const token = state?.token;
 
-  const handleSelectChange = useCallback((value) => setSelected(value), []);
-  const options = [{ label: "Row Per Page", value: "today" }];
+  const handleSelectChange=()=>{
+    setPerpage(perpage+1)
+  }
+  const options = [
+    { label: "Row Per Page", value: "today" },
+    { label: perpage, value: perpage },
+  ];
   const heading = [
     "UserId",
     "Catlog",
@@ -40,10 +56,30 @@ function Dashboardadd() {
   return (
     <div>
       <div className="rowperpage">
-        <Grid>
-          <Select options={options} onChange={handleSelectChange} />
-          <Button>View Columns</Button>
-        </Grid>
+        <Stack>
+          <div className="pagination">
+            <Pagination
+              label="Results"
+              hasPrevious
+              onPrevious={() => {
+                console.log("Previous");
+              }}
+              hasNext
+              onNext={() => {
+                console.log("Next");
+              }}
+            />
+          </div>
+          <div className="perpageselect">
+            <Select 
+            options={options} 
+            onChange={handleSelectChange} 
+            value="" />
+          </div>
+          <div className="btnperpage">
+            <Button>View Columns</Button>
+          </div>
+        </Stack>
       </div>
       <div className="dashadd">
         <Grid>

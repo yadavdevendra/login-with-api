@@ -40,9 +40,9 @@ function Home() {
       .then((data) => {
         if (data.success) {
           console.log(data);
-          setError(data.message);
+          setError(data.massege);
           setActive(false);
-          navigate("/",{replace:true ,state: data.message});
+          navigate("/",{replace:true ,state: {message:data.message, token:data.data.token}});
           
         } else {
           setActive(false);

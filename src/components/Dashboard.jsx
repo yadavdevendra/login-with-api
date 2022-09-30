@@ -21,7 +21,7 @@ useEffect(()=>{
         {!tclose && (
           <Frame>
             <Toast
-              content={state}
+              content={state.massege}
               onDismiss={() => {
                 setTclose(true);
               }}

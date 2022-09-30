@@ -1,29 +1,41 @@
-.App{
-text-align: center;
-margin-left: 100px;
-width: 80vw;
-height: 150vh;
+.App {
+  text-align: center;
+  margin-left: 100px;
+  width: 80vw;
+  height: 150vh;
 }
-.das{
+.das {
   position: absolute;
   height: 100px;
 }
-.dasbtn{
-display: flex;
-
-}
-
-.dashadd{
+.dasbtn {
   display: flex;
 }
-.col{
+
+.dashadd {
+  display: flex;
+}
+.col {
   display: flex;
   flex-direction: column;
 }
 /* .heading{
-} */
-.rowperpage{
-  margin: 10px;
-  display: flex;
+
+}*/
+.rowperpage {
+  margin-top: 20px;
+  background-color: white;
+  height: 70px;
+  width: 800px;
+  border-radius: 15px;
+}
+.pagination{
+  margin-left: 10px;
+}
+.perpageselect{
+  margin-left: 60px;
+}
+.btnperpage{
+  margin-left: 280px;
  
 }
