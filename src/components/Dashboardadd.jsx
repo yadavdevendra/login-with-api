@@ -6,9 +6,9 @@ import {
   Pagination,
   Stack,
 } from "@shopify/polaris";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Heading } from "./Heading";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function Dashboardadd() {
   const [selected, setSelected] = useState([]);

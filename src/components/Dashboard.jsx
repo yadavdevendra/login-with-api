@@ -1,27 +1,28 @@
-import React, { useEffect } from 'react'
-import {Button,Toast,Frame,} from "@shopify/polaris";
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import Dashboardadd from './Dashboardadd';
+import React, { useEffect } from "react";
+import { Button, Toast, Frame } from "@shopify/polaris";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Dashboardadd from "./Dashboardadd";
+import Das from './Das'
 
 export const Dashboard = () => {
-  const [tclose,setTclose] = useState(false)
-     const navigate = useNavigate();
-     const {state} = useLocation()
-    //  console.log(state);
-useEffect(()=>{
-  if(!state ){
-    navigate("/login",{replace:true})
-  }
-},[])
+  const [tclose, setTclose] = useState(false);
+  let navigate = useNavigate();
+  let { state } = useLocation();
+  console.log(state);
+  useEffect(() => {
+    if (!state) {
+      navigate("/login", { replace: true });
+    }
+  }, []);
 
   return (
     <div className="das">
-      <div >
+      <div>
         {!tclose && (
           <Frame>
             <Toast
-              content={state.massege}
+              content={state?.message}
               onDismiss={() => {
                 setTclose(true);
               }}
@@ -31,16 +32,13 @@ useEffect(()=>{
         )}
       </div>
       <div className="dasbtn">
-        <h1 style={{ color: "green" }}>Dashboard</h1>
+        <Das/>
         <Button
           onClick={() => navigate("/login", { replace: true, state: false })}
         >
           Go Back Home
         </Button>
       </div>
-      <div className="dasbtn">
-        <Dashboardadd />
-      </div>
     </div>
   );
-}
+};

@@ -13,16 +13,18 @@ function handleSelectChange(){
 
 }
   return (
-    <div className="heading">
+    <div>
       <Stack>
-        <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 8, lg: 6, xl: 6 }}>
-          <Select
-            label={item}
-            options={["Equals"]}
-            value={selected}
-            onChange={handleSelectChange}
-            // error="Province is required"
-          />
+        <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 3, lg: 12, xl: 6 }}>
+          <Card>
+            <Select
+              label={item}
+              options={["Equals"]}
+              value={selected}
+              onChange={handleSelectChange}
+              // error="Province is required"
+            />
+          </Card>
           <TextField placeholder={item} />
         </Grid.Cell>
       </Stack>

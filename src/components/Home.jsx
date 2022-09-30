@@ -39,10 +39,13 @@ function Home() {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          console.log(data);
-          setError(data.massege);
+          console.log("api data",data);
+          setError(data.message);
           setActive(false);
-          navigate("/",{replace:true ,state: {message:data.message, token:data.data.token}});
+         navigate("/", {
+           replace: true,
+           state: { message: data.message, token: data.data.token },
+         });
           
         } else {
           setActive(false);
