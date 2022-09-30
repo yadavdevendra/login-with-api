@@ -8,8 +8,10 @@ function Griddata() {
     setPerpage(perpage + 1);
   };
   const options = [
-    { label: "Row Per Page", value: "today" },
-    { label: perpage, value: perpage },
+    { label: "Row Per Page 5", value: 5 },
+    { label: "Row Per Page 10", value: 10 },
+    { label: "Row Per Page 15", value: 15 },
+    { label: "Row Per Page 20", value: 20 },
   ];
   return (
     <Page fullWidth>
