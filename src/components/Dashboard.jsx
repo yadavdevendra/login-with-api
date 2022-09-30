@@ -3,7 +3,7 @@ import { Button, Toast, Frame } from "@shopify/polaris";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Dashboardadd from "./Dashboardadd";
-import Das from './Das'
+import Das from "./Das";
 
 export const Dashboard = () => {
   const [tclose, setTclose] = useState(false);
@@ -31,14 +31,7 @@ export const Dashboard = () => {
           </Frame>
         )}
       </div>
-      <div className="dasbtn">
-        <Das/>
-        <Button
-          onClick={() => navigate("/login", { replace: true, state: false })}
-        >
-          Go Back Home
-        </Button>
-      </div>
+        <Das />
     </div>
   );
 };

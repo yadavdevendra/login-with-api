@@ -11,17 +11,6 @@
 .dasbtn {
   text-align: center;
 }
-
-.dashadd {
-  display: flex;
-}
-.col {
-  display: flex;
-  flex-direction: column;
-}
-/* .heading{
-
-} */
 .rowperpage {
   margin-top: 20px;
   background-color: white;
@@ -38,4 +27,16 @@
 .btnperpage{
   margin-left: 280px;
  
+}
+.dashadd {
+  margin-bottom: 1rem;
+}
+.col{
+  margin-block: 0.5rem;
+}
+.back{
+  /* position: absolute; */
+  transform: translate(50%,100%);
+  top: 50%;
+  left: 25%;
 }

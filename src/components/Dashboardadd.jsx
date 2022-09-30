@@ -12,14 +12,14 @@ import { useLocation } from "react-router-dom";
 
 function Dashboardadd() {
   const [selected, setSelected] = useState([]);
-  const [perpage, setPerpage]=useState(1)
+  const [perpage, setPerpage] = useState(1);
   const { state } = useLocation();
   // console.log("token", state.token);
   const token = state?.token;
 
-  const handleSelectChange=()=>{
-    setPerpage(perpage+1)
-  }
+  const handleSelectChange = () => {
+    setPerpage(perpage + 1);
+  };
   const options = [
     { label: "Row Per Page", value: "today" },
     { label: perpage, value: perpage },
@@ -71,10 +71,7 @@ function Dashboardadd() {
             />
           </div>
           <div className="perpageselect">
-            <Select 
-            options={options} 
-            onChange={handleSelectChange} 
-            value="" />
+            <Select options={options} onChange={handleSelectChange} value="" />
           </div>
           <div className="btnperpage">
             <Button>View Columns</Button>
@@ -82,26 +79,42 @@ function Dashboardadd() {
         </Stack>
       </div>
       <div className="dashadd">
-        <Grid>
+        <Stack wrap={false}>
           {heading?.map((item, index) => {
             return <Heading key={index} item={item} />;
           })}
-        </Grid>
+        </Stack>
       </div>
 
       {selected?.map((item) => {
         return (
           <div key={item.id} className="col">
-            <Grid>
-              <TextField placeholder={item.id} />
-              <TextField placeholder={item.catalog} />
-              <TextField placeholder={item.shopify.domain} />
-              <TextField placeholder={item.email} />
-              <TextField placeholder={item.shopify_plan} />
-              <TextField placeholder={item.updated_at} />
-              <TextField placeholder={item.created_at} />
-              <TextField placeholder={item.shopify.domain} />
-            </Grid>
+            <Stack wrap={false}>
+              <Stack.Item>
+                <TextField placeholder={item.id} />
+              </Stack.Item>
+              <Stack.Item>
+                <TextField placeholder={item.catalog} />
+              </Stack.Item>
+              <Stack.Item>
+                <TextField placeholder={item.shopify.domain} />
+              </Stack.Item>
+              <Stack.Item>
+                <TextField placeholder={item.email} />
+              </Stack.Item>
+              <Stack.Item>
+                <TextField placeholder={item.shopify_plan} />
+              </Stack.Item>
+              <Stack.Item>
+                <TextField placeholder={item.updated_at} />
+              </Stack.Item>
+              <Stack.Item>
+                <TextField placeholder={item.created_at} />
+              </Stack.Item>
+              <Stack.Item>
+                <TextField placeholder={item.shopify.domain} />
+              </Stack.Item>
+            </Stack>
           </div>
         );
       })}

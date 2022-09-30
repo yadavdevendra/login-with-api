@@ -1,19 +1,14 @@
 import {
   ActionList,
   AppProvider,
-  Card,
+  Button,
   ContextualSaveBar,
   FormLayout,
   Frame,
-  Layout,
   Loading,
   Modal,
   Navigation,
   Page,
-  SkeletonBodyText,
-  SkeletonDisplayText,
-  SkeletonPage,
-  TextContainer,
   TextField,
   Toast,
   TopBar,
@@ -25,6 +20,7 @@ import {
   ConversationMinor,
 } from "@shopify/polaris-icons";
 import { useState, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Dashboardadd from "./Dashboardadd";
 
 function Das() {
@@ -33,7 +29,7 @@ function Das() {
     nameFieldValue: "Jaded Pixel",
   });
   const skipToContentRef = useRef(null);
-
+  let navigate = useNavigate();
   const [toastActive, setToastActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
@@ -178,15 +174,12 @@ function Das() {
   );
 
   const navigationMarkup = (
-    <Navigation location="/">
-      <Navigation.Section
-        items={[
-          {
-            label: "Back to Shopify",
-            icon: ArrowLeftMinor,
-          },
-        ]}
-      />
+    <Navigation>
+      <Button
+        onClick={() => navigate("/login", { replace: true, state: false })}
+      >
+        Go Back Home
+      </Button>
       <Navigation.Section
         separator
         title="Dashboard App"
@@ -217,16 +210,12 @@ function Das() {
     <a id="SkipToContentTarget" ref={skipToContentRef} tabIndex={-1} />
   );
 
-  const actualPageMarkup = (
-    <Page title="Account">
-    
-    </Page>
-  );
+  const actualPageMarkup = <Page title="Click ON Dashboard"></Page>;
 
   const loadingPageMarkup = (
-    <SkeletonPage>
-      <Dashboardadd />
-    </SkeletonPage>
+    // <SkeletonPage>
+    <Dashboardadd />
+    // </SkeletonPage>
   );
 
   const pageMarkup = isLoading ? loadingPageMarkup : actualPageMarkup;
@@ -243,7 +232,19 @@ function Das() {
     >
       <Modal.Section>
         <FormLayout>
-          
+          <TextField
+            label="Subject"
+            value={supportSubject}
+            onChange={handleSubjectChange}
+            autoComplete="off"
+          />
+          <TextField
+            label="Message"
+            value={supportMessage}
+            onChange={handleMessageChange}
+            autoComplete="off"
+            multiline
+          />
         </FormLayout>
       </Modal.Section>
     </Modal>
