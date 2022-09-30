@@ -34,9 +34,3 @@
 .col{
   margin-block: 0.5rem;
 }
-.back{
-  /* position: absolute; */
-  transform: translate(50%,100%);
-  top: 50%;
-  left: 25%;
-}

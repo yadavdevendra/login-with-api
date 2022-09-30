@@ -14,14 +14,13 @@ import {
   TopBar,
 } from "@shopify/polaris";
 import {
-  ArrowLeftMinor,
   HomeMajor,
   OrdersMajor,
   ConversationMinor,
 } from "@shopify/polaris-icons";
 import { useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Dashboardadd from "./Dashboardadd";
+import Datatable from "./Datatable";
 
 function Das() {
   const defaultState = useRef({
@@ -210,12 +209,12 @@ function Das() {
     <a id="SkipToContentTarget" ref={skipToContentRef} tabIndex={-1} />
   );
 
-  const actualPageMarkup = <Page title="Click ON Dashboard"></Page>;
+  const actualPageMarkup = <Datatable />;
 
   const loadingPageMarkup = (
-    // <SkeletonPage>
-    <Dashboardadd />
-    // </SkeletonPage>
+   
+    <Page title="Click on Dashboard then show The data"></Page>
+   
   );
 
   const pageMarkup = isLoading ? loadingPageMarkup : actualPageMarkup;

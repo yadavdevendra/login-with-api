@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { Button, Toast, Frame } from "@shopify/polaris";
+import { Toast, Frame } from "@shopify/polaris";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Dashboardadd from "./Dashboardadd";
 import Das from "./Das";
 
 export const Dashboard = () => {
