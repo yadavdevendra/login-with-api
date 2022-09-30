@@ -92,24 +92,26 @@ function Datatable() {
   }, []);
 console.log(selected);
   return (
-    <Page title="Data Table">
-      <Card>
-        <DataTable
-          columnContentTypes={[
-            "numeric",
-            "text",
-            "text",
-            "text",
-            "text",
-            "text",
-            "text",
-            "text",
-          ]}
-          headings={heading[0]}
-          rows={selected}
-        />
-      </Card>
-    </Page>
+    <div className="datatable">
+      <Page>
+        <Card>
+          <DataTable
+            columnContentTypes={[
+              "numeric",
+              "text",
+              "text",
+              "text",
+              "text",
+              "text",
+              "text",
+              "text",
+            ]}
+            headings={heading[0]}
+            rows={selected}
+          />
+        </Card>
+      </Page>
+    </div>
   );
 }
 export default Datatable;

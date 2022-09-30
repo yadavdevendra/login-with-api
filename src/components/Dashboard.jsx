@@ -1,11 +1,22 @@
 import React, { useEffect } from "react";
-import { Toast, Frame } from "@shopify/polaris";
+import {
+  Toast,
+  Frame,
+  Stack,
+  Select,
+  Button,
+  Pagination,
+  Grid,
+
+} from "@shopify/polaris";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Das from "./Das";
+import Griddata from "./Griddata";
 
 export const Dashboard = () => {
   const [tclose, setTclose] = useState(false);
+   const [perpage, setPerpage] = useState(1);
   let navigate = useNavigate();
   let { state } = useLocation();
   console.log(state);
@@ -14,6 +25,13 @@ export const Dashboard = () => {
       navigate("/login", { replace: true });
     }
   }, []);
+    const options = [
+      { label: "Row Per Page", value: "today" },
+      { label: perpage, value: perpage },
+    ];
+     const handleSelectChange = () => {
+       setPerpage(perpage + 1);
+     };
 
   return (
     <div className="das">
@@ -30,7 +48,10 @@ export const Dashboard = () => {
           </Frame>
         )}
       </div>
-        <Das />
+      <div className="gridpage">
+        <Griddata />
+      </div>
+      <Das />
     </div>
   );
 };

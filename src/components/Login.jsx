@@ -11,7 +11,7 @@ import {
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Home() {
+function Login() {
   const [users, setUsers] = useState();
   const [error, setError] = useState("") // error
   const [username, setUsername] = useState("");
@@ -42,7 +42,7 @@ function Home() {
           console.log("api data",data);
           setError(data.message);
           setActive(false);
-         navigate("/", {
+         navigate("/dashboard", {
            replace: true,
            state: { message: data.message, token: data.data.token },
          });
@@ -101,4 +101,4 @@ function Home() {
     </Form>
   );
 }
-export default Home;
+export default Login;
