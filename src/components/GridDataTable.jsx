@@ -27,9 +27,7 @@ function GridDataTable() {
     { label: "Row Per Page:50", value: "50" },
     { label: "Row Per Page:100", value: "100" },
   ];
-   const options1 = [
-     { label: "Equals", value: "100" },
-   ];
+  const options1 = [{ label: "Equals", value: "100" }];
   const heading = [
     [
       "User_Id",
@@ -52,19 +50,17 @@ function GridDataTable() {
       "username",
     ],
   ];
-  const head = heading[0].map(item=>{return (
-    <>
-      <DisplayText element="p" size="small">
-        {item}
-      </DisplayText>
-      <Select  
-      options={options1}
-      value=""
-      onChange={()=>{}}
-      />
-      <TextField placeholder={item}/>
-    </>
-  );})
+  const head = heading[0].map((item) => {
+    return (
+      <>
+        <DisplayText element="p" size="small">
+          {item}
+        </DisplayText>
+        <Select options={options1} value="" onChange={() => {}} />
+        <TextField placeholder={item} />
+      </>
+    );
+  });
   useEffect(() => {
     let temp = [];
     fetch(
@@ -103,95 +99,102 @@ function GridDataTable() {
   // Table Row
 
   return (
-    <Page fullWidth>
-      <Text variant="headingLg" as="h1" alignment="start">
-        Data Grid......
-      </Text>
-      <Text variant="headingLg" as="h1" size="large" alignment="start">
-        {`showing from ${(ActivePage - 1) * SelectRowPerPage + 1} to ${
-          ActivePage * SelectRowPerPage
-        } of Users`}
-      </Text>
+    <>
+      <Page fullWidth>
+        <Text variant="headingLg" as="h1" alignment="start">
+          Data Grid......
+        </Text>
+        <Text variant="headingLg" as="h1" size="large" alignment="start">
+          {`showing from ${(ActivePage - 1) * SelectRowPerPage + 1} to ${
+            ActivePage * SelectRowPerPage
+          } of Users`}
+        </Text>
 
-      <Card sectioned>
-        <Grid
-          columns={{ xs: 1, sm: 4, md: 8, lg: 6, xl: 6 }}
-          areas={{
-            xs: ["product", "sales", "orders"],
-            sm: [
-              "product product product product",
-              "sales sales orders orders",
-            ],
-            md: ["sales product product orders"],
-            lg: ["product product product product sales orders"],
-            xl: ["product product sales sales orders orders"],
-          }}
-        >
-          <Grid.Cell area="product">
-            <Pagination
-              style={{
-                height: "60px",
-                background: "aquamarine",
-              }}
-              label={ActivePage}
-              hasPrevious
-              onPrevious={() => {
-                if (ActivePage === 1) {
-                  setActivePage(1);
-                  return;
-                }
-                setActivePage(ActivePage - 1);
-              }}
-              hasNext
-              onNext={() => {
-                if (ActivePage === Math.ceil(count / SelectRowPerPage)) {
-                  setSelectRowPerPage(Math.ceil(count / SelectRowPerPage));
-                  return;
-                }
-                setActivePage(ActivePage + 1);
-              }}
-            />
-          </Grid.Cell>
-          <Grid.Cell area="sales">
-            <Select
-              style={{
-                height: "60px",
-                background: "aquamarine",
-              }}
-              options={options}
-              onChange={handleSelectChange}
-              value={SelectRowPerPage}
-            />
-          </Grid.Cell>
-          <Grid.Cell area="orders">
-            <Button
-              style={{
-                height: "60px",
-              }}
-            >
-              View Columns
-            </Button>
-          </Grid.Cell>
+        <Card sectioned>
+          <Grid
+            columns={{ xs: 1, sm: 4, md: 8, lg: 6, xl: 6 }}
+            areas={{
+              xs: ["product", "sales", "orders"],
+              sm: [
+                "product product product product",
+                "sales sales orders orders",
+              ],
+              md: ["sales product product orders"],
+              lg: ["product product product product sales orders"],
+              xl: ["product product sales sales orders orders"],
+            }}
+          >
+            <Grid.Cell area="product">
+              <Pagination
+                style={{
+                  height: "60px",
+                  background: "aquamarine",
+                }}
+                label={ActivePage}
+                hasPrevious
+                onPrevious={() => {
+                  if (ActivePage === 1) {
+                    setActivePage(1);
+                    return;
+                  }
+                  setActivePage(ActivePage - 1);
+                }}
+                hasNext
+                onNext={() => {
+                  if (ActivePage === Math.ceil(count / SelectRowPerPage)) {
+                    setSelectRowPerPage(Math.ceil(count / SelectRowPerPage));
+                    return;
+                  }
+                  setActivePage(ActivePage + 1);
+                }}
+              />
+            </Grid.Cell>
+            <Grid.Cell area="sales">
+              <Select
+                style={{
+                  height: "60px",
+                  background: "aquamarine",
+                }}
+                options={options}
+                onChange={handleSelectChange}
+                value={SelectRowPerPage}
+              />
+            </Grid.Cell>
+            <Grid.Cell area="orders">
+              <Button
+                style={{
+                  height: "60px",
+                }}
+              >
+                View Columns
+              </Button>
+            </Grid.Cell>
+          </Grid>
+        </Card>
 
-          <Grid.Cell columnSpan={{ xs: 6, sm: 4, md: 4, lg: 8, xl: 12 }}>
-            <DataTable
-              columnContentTypes={[
-                "numeric",
-                "text",
-                "text",
-                "text",
-                "text",
-                "text",
-                "text",
-                "text",
-              ]}
-              headings={head}
-              rows={viewTable}
-            />
-          </Grid.Cell>
-        </Grid>
-      </Card>
-    </Page>
+        <Card>
+          <Grid>
+          
+            <Grid.Cell columnSpan={{ xs: 6, sm: 4, md: 8, lg: 8, xl: 12 }}>
+              <DataTable
+                columnContentTypes={[
+                  "numeric",
+                  "text",
+                  "text",
+                  "text",
+                  "text",
+                  "text",
+                  "text",
+                  "text",
+                ]}
+                headings={head}
+                rows={viewTable}
+              />
+            </Grid.Cell>
+          </Grid>
+        </Card>
+      </Page>
+    </>
   );
 }
 
