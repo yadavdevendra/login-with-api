@@ -65,8 +65,8 @@ function Login() {
   ) : null;
 
   return (
-    <Grid columnSpan={{ xs: 6, sm: 3, md: 3, lg: 10, xl: 6 }}>
-      <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 3, lg: 10, xl: 6 }}>
+    <Grid>
+      <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 3, lg: 12, xl: 12 }}>
         <div className="formInpt">
           <Form preventDefault onSubmit={handleSubmit}>
             <FormLayout>

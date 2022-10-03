@@ -1,17 +1,10 @@
 .App {
-  margin-top: 20px;
   text-align: center;
-  /* width: 80vw;
-  height: 100vh; */
 }
-
-
 .formInpt {
-    margin-left: 100vh;
+    margin: 100px;
 }
-.Polaris-Grid-Cell--cell_6ColumnXl {
-    grid-column-end: span 9 !important;
-}
+
 
 /* .rowperpage {
 
