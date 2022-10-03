@@ -175,7 +175,7 @@ function GridDataTable() {
         <Card>
           <Grid>
           
-            <Grid.Cell columnSpan={{ xs: 6, sm: 4, md: 8, lg: 8, xl: 12 }}>
+            <Grid.Cell columnSpan={{ xs: 6, sm: 4, md: 8, lg: 12, xl: 12 }}>
               <DataTable
                 columnContentTypes={[
                   "numeric",
