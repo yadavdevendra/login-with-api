@@ -1,15 +1,18 @@
 .App {
+  margin-top: 20px;
   text-align: center;
-  margin-left: 25px;
-  width: 90vw;
-  height: 100vh;
+  /* width: 80vw;
+  height: 100vh; */
 }
-/* .das {
-  position: absolute;
-} */
-/* .dasbtn {
-  text-align: center;
+
+
+.formInpt {
+    margin-left: 100vh;
 }
+.Polaris-Grid-Cell--cell_6ColumnXl {
+    grid-column-end: span 9 !important;
+}
+
 /* .rowperpage {
 
 } */

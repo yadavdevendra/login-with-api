@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Toast, Frame, DisplayText } from "@shopify/polaris";
+import { Toast, Frame, DisplayText, Page } from "@shopify/polaris";
 
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
@@ -19,22 +19,20 @@ export const Dashboard = () => {
  
   return (
     <div className="das">
-      <DisplayText>Data Grid....</DisplayText>
-      <div>
-        {!tclose && (
-          <Frame>
-            <Toast
-              content={state}
-              onDismiss={() => {
-                setTclose(true);
-              }}
-              duration={5000}
+    <Page fullWidth>
+      {!tclose && (
+        <Frame>
+          <Toast
+            content={state}
+            onDismiss={() => {
+              setTclose(true);
+            }}
+            duration={5000}
             />
-          </Frame>
-        )}
-      </div>
-      <div className="gridpage"></div>
+        </Frame>
+      )}
       <Das />
-    </div>
+    </Page>
+      </div>
   );
 };

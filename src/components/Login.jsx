@@ -5,6 +5,7 @@ import {
   Button,
   Toast,
   Frame,
+  Grid,
   Spinner,
 } from "@shopify/polaris";
 // import { useEffect } from "react";
@@ -37,7 +38,7 @@ function Login() {
           setActive(false);
           sessionStorage.setItem("data", JSON.stringify(data));
           // navigate("/dashboard");
-           navigate("/dashboard", {state:  data.message})
+          navigate("/dashboard", { state: data.message });
         } else {
           setActive(false);
           setError(data.message);
@@ -64,36 +65,42 @@ function Login() {
   ) : null;
 
   return (
-    <Form preventDefault onSubmit={handleSubmit}>
-      <FormLayout>
-        <TextField
-          value={username}
-          placeholder="UserName"
-          onChange={handleUsernameChange}
-          label="User Name"
-          type="text"
-          autoComplete="username"
-        />
+    <Grid columnSpan={{ xs: 6, sm: 3, md: 3, lg: 10, xl: 6 }}>
+      <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 3, lg: 10, xl: 6 }}>
+        <div className="formInpt">
+          <Form preventDefault onSubmit={handleSubmit}>
+            <FormLayout>
+              <TextField
+                value={username}
+                placeholder="UserName"
+                onChange={handleUsernameChange}
+                label="User Name"
+                type="text"
+                autoComplete="username"
+              />
 
-        <TextField
-          value={password}
-          onChange={handlePasswordChange}
-          label="Password"
-          type="password"
-          placeholder="Password"
-          autoComplete="password"
-        />
-        {active && (
-          <Spinner accessibilityLabel="Spinner example" size="large" />
-        )}
-        <div style={{ height: "250px" }}>
-          <Frame>
-            <Button submit>Submit</Button>
-            {toastMarkup}
-          </Frame>
+              <TextField
+                value={password}
+                onChange={handlePasswordChange}
+                label="Password"
+                type="password"
+                placeholder="Password"
+                autoComplete="password"
+              />
+              {active && (
+                <Spinner accessibilityLabel="Spinner example" size="large" />
+              )}
+              <div style={{ height: "250px" }}>
+                <Frame>
+                  <Button submit>Submit</Button>
+                  {toastMarkup}
+                </Frame>
+              </div>
+            </FormLayout>
+          </Form>
         </div>
-      </FormLayout>
-    </Form>
+      </Grid.Cell>
+    </Grid>
   );
 }
 export default Login;

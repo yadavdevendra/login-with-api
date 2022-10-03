@@ -6,18 +6,20 @@ import {
   Select,
   Grid,
   Button,
-  Stack,
+Spinner,
   DisplayText,
   Text,
   TextField,
 } from "@shopify/polaris";
 import React, { useEffect, useState } from "react";
+  
 
 function GridDataTable() {
   const [ActivePage, setActivePage] = useState(1);
   const [SelectRowPerPage, setSelectRowPerPage] = useState(10);
   const [viewTable, setViewTable] = useState([]);
   const [count, setCount] = useState(0);
+  const [active, setActive] = useState(true); // spinnner
   let tokenData = JSON.parse(sessionStorage.getItem("data"));
   let Token = tokenData?.data?.token;
 
@@ -88,6 +90,7 @@ function GridDataTable() {
         });
         console.log(temp, "temp");
         setViewTable(temp);
+        setActive(false)
       });
   }, [ActivePage, SelectRowPerPage]);
 
@@ -171,10 +174,11 @@ function GridDataTable() {
             </Grid.Cell>
           </Grid>
         </Card>
-
+        {active && (
+          <Spinner accessibilityLabel="Spinner example" size="large" />
+        )}
         <Card>
           <Grid>
-          
             <Grid.Cell columnSpan={{ xs: 6, sm: 4, md: 8, lg: 12, xl: 12 }}>
               <DataTable
                 columnContentTypes={[
