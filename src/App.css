@@ -2,22 +2,17 @@
   text-align: center;
   margin-left: 25px;
   width: 80vw;
-  height: 150vh;
+  height: 100vh;
 }
 .das {
   position: absolute;
-  height: 100px;
 }
 .dasbtn {
   text-align: center;
 }
-.rowperpage {
-  margin-top: 20px;
-  background-color: white;
-  height: 70px;
-  width: 800px;
-  border-radius: 15px;
-}
+/* .rowperpage {
+
+} */
 .pagination{
   margin-left: 10px;
 }
@@ -32,10 +27,3 @@
   margin-bottom: 1rem;
 }
 
-.gridpage{
-  margin-top: 60px;
-  margin-left: 250px;
-}
-.datatable{
-  margin-top: -80px;
-}

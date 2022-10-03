@@ -10,6 +10,7 @@ function App() {
 
   return (
     <AppProvider>
+      <></>
       <div className="App">
         <BrowserRouter>
           <Routes>

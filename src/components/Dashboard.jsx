@@ -1,45 +1,30 @@
 import React, { useEffect } from "react";
-import {
-  Toast,
-  Frame,
-  Stack,
-  Select,
-  Button,
-  Pagination,
-  Grid,
+import { Toast, Frame, DisplayText } from "@shopify/polaris";
 
-} from "@shopify/polaris";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import Das from "./Das";
-import Griddata from "./Griddata";
 
 export const Dashboard = () => {
   const [tclose, setTclose] = useState(false);
-   const [perpage, setPerpage] = useState(1);
-  let navigate = useNavigate();
+
+  // let navigate = useNavigate();
   let { state } = useLocation();
   console.log(state);
-  useEffect(() => {
-    if (!state) {
-      navigate("/login", { replace: true });
-    }
-  }, []);
-    const options = [
-      { label: "Row Per Page", value: "today" },
-      { label: perpage, value: perpage },
-    ];
-     const handleSelectChange = () => {
-       setPerpage(perpage + 1);
-     };
-
+  // useEffect(() => {
+  //   if (!state) {
+  //     navigate("/login", { replace: true });
+  //   }
+  // }, []);
+ 
   return (
     <div className="das">
+      <DisplayText>Data Grid....</DisplayText>
       <div>
         {!tclose && (
           <Frame>
             <Toast
-              content={state?.message}
+              content={state}
               onDismiss={() => {
                 setTclose(true);
               }}
@@ -48,9 +33,7 @@ export const Dashboard = () => {
           </Frame>
         )}
       </div>
-      <div className="gridpage">
-        <Griddata />
-      </div>
+      <div className="gridpage"></div>
       <Das />
     </div>
   );
