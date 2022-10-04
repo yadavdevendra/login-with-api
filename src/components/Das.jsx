@@ -176,7 +176,7 @@ function Das() {
   const navigationMarkup = (
     <Navigation>
       <Button
-        onClick={() => navigate("/login", { replace: true, state: false })}
+        onClick={() => navigate("/:login", { replace: true, state: false })}
       >
         Go Back Home
       </Button>

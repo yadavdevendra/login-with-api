@@ -38,7 +38,7 @@ function Login() {
           setActive(false);
           sessionStorage.setItem("data", JSON.stringify(data));
           // navigate("/dashboard");
-          navigate("/dashboard", { state: data.message });
+          navigate("/dashboard", {replace: true, state: data.message });
         } else {
           setActive(false);
           setError(data.message);

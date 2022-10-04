@@ -7,16 +7,9 @@ import Das from "./Das";
 
 export const Dashboard = () => {
   const [tclose, setTclose] = useState(false);
-
-  // let navigate = useNavigate();
   let { state } = useLocation();
-  console.log(state);
-  // useEffect(() => {
-  //   if (!state) {
-  //     navigate("/login", { replace: true });
-  //   }
-  // }, []);
- 
+  // console.log(state);
+
   return (
     <div className="das">
     <Page fullWidth>
@@ -27,7 +20,7 @@ export const Dashboard = () => {
             onDismiss={() => {
               setTclose(true);
             }}
-            duration={5000}
+            duration={2000}
             />
         </Frame>
       )}

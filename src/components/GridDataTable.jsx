@@ -115,7 +115,7 @@ function GridDataTable() {
 
         <Card sectioned>
           <Grid
-            columns={{ xs: 1, sm: 4, md: 8, lg: 6, xl: 6 }}
+            columns={{ xs: 1, sm: 4, md: 12, lg: 6, xl: 6 }}
             areas={{
               xs: ["product", "sales", "orders"],
               sm: [
@@ -174,9 +174,7 @@ function GridDataTable() {
             </Grid.Cell>
           </Grid>
         </Card>
-        {active && (
-          <Spinner accessibilityLabel="Spinner example" size="large" />
-        )}
+
         <Card>
           <Grid>
             <Grid.Cell columnSpan={{ xs: 6, sm: 4, md: 8, lg: 12, xl: 12 }}>
@@ -197,6 +195,9 @@ function GridDataTable() {
             </Grid.Cell>
           </Grid>
         </Card>
+        {active && (
+          <Spinner accessibilityLabel="Spinner example" size="large" />
+        )}
       </Page>
     </>
   );
