@@ -144,13 +144,8 @@ function GridDataTable() {
         </Text>
 
         <Card sectioned>
-          <Grid
-            columns={{ xs: 6, sm: 4, md: 4, lg: 4, xl: 4 }}
-            areas={{
-              xl: ["product sales sales space orders orders"],
-            }}
-          >
-            <Grid.Cell area="product">
+          <Grid columnSpan={{ xs: 6, sm: 3, md: 3, lg: 6, xl: 6 }}>
+            <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
               <Pagination
                 style={{
                   height: "60px",
@@ -175,7 +170,7 @@ function GridDataTable() {
                 }}
               />
             </Grid.Cell>
-            <Grid.Cell area="sales">
+            <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
               <Select
                 placeholder="Select Rows Per Page"
                 style={{
@@ -187,7 +182,7 @@ function GridDataTable() {
                 value={SelectRowPerPage}
               />
             </Grid.Cell>
-            <Grid.Cell area="orders">
+            <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
               <Button
                 style={{
                   height: "60px",
@@ -199,7 +194,7 @@ function GridDataTable() {
           </Grid>
         </Card>
 
-        <Grid columns={{ xs: 6, sm: 4, md: 12, lg: 8, xl: 1 }}>
+        <Grid columns={{ xs: 6, sm: 4, md: 8, lg: 1, xl: 1 }}>
           <Card>
             <Grid.Cell area="product">
               <DataTable
