@@ -194,26 +194,23 @@ function GridDataTable() {
           </Grid>
         </Card>
 
-        <Grid columns={{ xs: 6, sm: 4, md: 8, lg: 1, xl: 1 }}>
-          <Card>
-            <Grid.Cell area="product">
-              <DataTable
-                columnContentTypes={[
-                  "numeric",
-                  "text",
-                  "text",
-                  "text",
-                  "text",
-                  "text",
-                  "text",
-                  "text",
-                ]}
-                headings={head}
-                rows={viewTable}
-              />
-            </Grid.Cell>
+       
+          <Card sectioned>
+            <DataTable
+              columnContentTypes={[
+                "numeric",
+                "text",
+                "text",
+                "text",
+                "text",
+                "text",
+                "text",
+                "text",
+              ]}
+              headings={head}
+              rows={viewTable}
+            />
           </Card>
-        </Grid>
         {active && (
           <Spinner accessibilityLabel="Spinner example" size="large" />
         )}
