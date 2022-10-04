@@ -6,31 +6,36 @@ import {
   Select,
   Grid,
   Button,
-Spinner,
+  Spinner,
   DisplayText,
   Text,
   TextField,
 } from "@shopify/polaris";
 import React, { useEffect, useState } from "react";
-  
 
 function GridDataTable() {
   const [ActivePage, setActivePage] = useState(1);
   const [SelectRowPerPage, setSelectRowPerPage] = useState(10);
   const [viewTable, setViewTable] = useState([]);
-  const [inputarr , setInputarr] = useState([]);
+  const [inputarr, setInputarr] = useState([]);
   const [count, setCount] = useState(0);
   const [active, setActive] = useState(true); // spinnner
+  const [val, setVal] = useState([]);
   let tokenData = JSON.parse(sessionStorage.getItem("data"));
   let Token = tokenData?.data?.token;
-
+  console.table(inputarr);
+  console.table(val);
   const options = [
     { label: "Row Per Page:10", value: "10" },
     { label: "Row Per Page:20", value: "20" },
     { label: "Row Per Page:50", value: "50" },
     { label: "Row Per Page:100", value: "100" },
   ];
-  const options1 = [{ label: "Equals", value: "100" }];
+  const options1 = [
+    { label: "Equals", value: "100" },
+    { label: "Row ", value: "20" },
+    { label: "Page ", value: "50" },
+  ];
   const heading = [
     [
       "User_Id",
@@ -53,21 +58,29 @@ function GridDataTable() {
       "username",
     ],
   ];
-  console.log("Euals", inputarr);
-  const head = heading[0].map((item,i) => {
+  // console.log("Euals", inputarr);
+  const head = heading[0].map((item, i) => {
     return (
       <>
         <DisplayText element="p" size="small">
           {item}
         </DisplayText>
-        <Select options={options1} />
+        <Select
+          options={options1}
+          value={val[i]}
+          onChange={(e) => {
+            let newval = [...val];
+            newval[i] = e;
+            setVal(newval);
+          }}
+        />
         <TextField
           placeholder={item}
           value={inputarr[i]}
           onChange={(e) => {
-            let newinput = [...inputarr]
-            newinput[i] = e
-            setInputarr(newinput)
+            let newinputarr = [...inputarr];
+            newinputarr[i] = e;
+            setInputarr(newinputarr);
           }}
         />
       </>
@@ -87,21 +100,27 @@ function GridDataTable() {
         // console.log(data);
         setCount(data.count);
         data?.data?.rows.map((item) => {
+          // use the for loop
           // let arr = [];
           // for (let i = 0; i < heading[1].length; i++) {
           //   arr[i] = item[heading[1][i]];
           // }
-          let arr = heading[1].map((_, i) => {
-            return item[heading[1][i]];
-          });
+          // use the map
+          // let arr = heading[1].map((_, i) => {
+          //   return item[heading[1][i]];
+          // });
+          // use the forEach method
+           let arr = [];
+           heading[1].forEach((_, i) => {
+             arr.push(item[heading[1][i]]);
+           });
           temp.push(arr);
-          // temp.push(h)
-          // temp = [...arr];
+
         });
         // console.log(temp, "temp");
-        setInputarr(new Array(heading[0].length).fill(""))
+        setInputarr(new Array(temp.length).fill(""));
         setViewTable(temp);
-        setActive(false)
+        setActive(false);
       });
   }, [ActivePage, SelectRowPerPage]);
 
@@ -126,7 +145,7 @@ function GridDataTable() {
 
         <Card sectioned>
           <Grid
-            columns={{ xs: 6, sm: 4, md:4, lg: 4, xl: 4 }}
+            columns={{ xs: 6, sm: 4, md: 4, lg: 4, xl: 4 }}
             areas={{
               xl: ["product sales sales space orders orders"],
             }}
@@ -157,7 +176,8 @@ function GridDataTable() {
               />
             </Grid.Cell>
             <Grid.Cell area="sales">
-              <Select placeholder="Select Rows Per Page"
+              <Select
+                placeholder="Select Rows Per Page"
                 style={{
                   height: "60px",
                   background: "aquamarine",
@@ -179,9 +199,7 @@ function GridDataTable() {
           </Grid>
         </Card>
 
-        <Grid
-          columns={{ xs: 6, sm: 4, md: 12, lg: 8, xl: 1 }}
-        >
+        <Grid columns={{ xs: 6, sm: 4, md: 12, lg: 8, xl: 1 }}>
           <Card>
             <Grid.Cell area="product">
               <DataTable

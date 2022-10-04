@@ -158,7 +158,7 @@ function Das() {
    
   );
 
-  const pageMarkup = isLoading ? loadingPageMarkup : actualPageMarkup;
+  const pageMarkup = isLoading ? actualPageMarkup : actualPageMarkup;
 
  
 
