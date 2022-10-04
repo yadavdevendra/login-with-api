@@ -18,6 +18,7 @@ function GridDataTable() {
   const [ActivePage, setActivePage] = useState(1);
   const [SelectRowPerPage, setSelectRowPerPage] = useState(10);
   const [viewTable, setViewTable] = useState([]);
+  const [inputarr , setInputarr] = useState([]);
   const [count, setCount] = useState(0);
   const [active, setActive] = useState(true); // spinnner
   let tokenData = JSON.parse(sessionStorage.getItem("data"));
@@ -52,14 +53,23 @@ function GridDataTable() {
       "username",
     ],
   ];
-  const head = heading[0].map((item) => {
+  console.log("Euals", inputarr);
+  const head = heading[0].map((item,i) => {
     return (
       <>
         <DisplayText element="p" size="small">
           {item}
         </DisplayText>
-        <Select options={options1} value="" onChange={() => {}} />
-        <TextField placeholder={item} />
+        <Select options={options1} />
+        <TextField
+          placeholder={item}
+          value={inputarr[i]}
+          onChange={(e) => {
+            let newinput = [...inputarr]
+            newinput[i] = e
+            setInputarr(newinput)
+          }}
+        />
       </>
     );
   });
@@ -74,7 +84,7 @@ function GridDataTable() {
     )
       .then((x) => x.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setCount(data.count);
         data?.data?.rows.map((item) => {
           // let arr = [];
@@ -88,7 +98,8 @@ function GridDataTable() {
           // temp.push(h)
           // temp = [...arr];
         });
-        console.log(temp, "temp");
+        // console.log(temp, "temp");
+        setInputarr(new Array(heading[0].length).fill(""))
         setViewTable(temp);
         setActive(false)
       });
@@ -115,16 +126,9 @@ function GridDataTable() {
 
         <Card sectioned>
           <Grid
-            columns={{ xs: 1, sm: 4, md: 12, lg: 6, xl: 6 }}
+            columns={{ xs: 6, sm: 4, md:4, lg: 4, xl: 4 }}
             areas={{
-              xs: ["product", "sales", "orders"],
-              sm: [
-                "product product product product",
-                "sales sales orders orders",
-              ],
-              md: ["sales product product orders"],
-              lg: ["product product product product sales orders"],
-              xl: ["product product sales sales orders orders"],
+              xl: ["product sales sales space orders orders"],
             }}
           >
             <Grid.Cell area="product">
@@ -153,7 +157,7 @@ function GridDataTable() {
               />
             </Grid.Cell>
             <Grid.Cell area="sales">
-              <Select
+              <Select placeholder="Select Rows Per Page"
                 style={{
                   height: "60px",
                   background: "aquamarine",
@@ -175,9 +179,11 @@ function GridDataTable() {
           </Grid>
         </Card>
 
-        <Card>
-          <Grid>
-            <Grid.Cell columnSpan={{ xs: 6, sm: 4, md: 8, lg: 12, xl: 12 }}>
+        <Grid
+          columns={{ xs: 6, sm: 4, md: 12, lg: 8, xl: 1 }}
+        >
+          <Card>
+            <Grid.Cell area="product">
               <DataTable
                 columnContentTypes={[
                   "numeric",
@@ -193,8 +199,8 @@ function GridDataTable() {
                 rows={viewTable}
               />
             </Grid.Cell>
-          </Grid>
-        </Card>
+          </Card>
+        </Grid>
         {active && (
           <Spinner accessibilityLabel="Spinner example" size="large" />
         )}

@@ -1,35 +1,12 @@
-import {
-  ActionList,
-  AppProvider,
-  Button,
-  ContextualSaveBar,
-  FormLayout,
-  Frame,
-  Loading,
-  Modal,
-  Navigation,
-  Page,
-  TextField,
-  Toast,
-  TopBar,
-} from "@shopify/polaris";
-import {
-  HomeMajor,
-  OrdersMajor,
-  ConversationMinor,
-} from "@shopify/polaris-icons";
+import {ActionList,AppProvider,Button,ContextualSaveBar,Frame,Loading,Navigation,Page,Toast,TopBar,} from "@shopify/polaris";
+import {HomeMajor,} from "@shopify/polaris-icons";
 import { useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import GridDataTable from "./GridDataTable";
 
 
 function Das() {
-  const defaultState = useRef({
-    emailFieldValue: "dharma@jadedpixel.com",
-    nameFieldValue: "Jaded Pixel",
-  });
-  const skipToContentRef = useRef(null);
-  let navigate = useNavigate();
+  const defaultState = useRef({emailFieldValue: "devyadav3001@gmail.com",nameFieldValue: "React Js",});
   const [toastActive, setToastActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
@@ -37,27 +14,11 @@ function Das() {
   const [searchValue, setSearchValue] = useState("");
   const [userMenuActive, setUserMenuActive] = useState(false);
   const [mobileNavigationActive, setMobileNavigationActive] = useState(false);
-  const [modalActive, setModalActive] = useState(false);
-  const [nameFieldValue, setNameFieldValue] = useState(
-    defaultState.current.nameFieldValue
-  );
-  const [emailFieldValue, setEmailFieldValue] = useState(
-    defaultState.current.emailFieldValue
-  );
-  const [storeName, setStoreName] = useState(
-    defaultState.current.nameFieldValue
-  );
-  const [supportSubject, setSupportSubject] = useState("");
-  const [supportMessage, setSupportMessage] = useState("");
-
-  const handleSubjectChange = useCallback(
-    (value) => setSupportSubject(value),
-    []
-  );
-  const handleMessageChange = useCallback(
-    (value) => setSupportMessage(value),
-    []
-  );
+  const [nameFieldValue, setNameFieldValue] = useState(defaultState.current.nameFieldValue);
+  const [emailFieldValue, setEmailFieldValue] = useState(defaultState.current.emailFieldValue);
+  const [storeName, setStoreName] = useState(defaultState.current.nameFieldValue);
+  const skipToContentRef = useRef(null);
+  let navigate = useNavigate();
   const handleDiscard = useCallback(() => {
     setEmailFieldValue(defaultState.current.emailFieldValue);
     setNameFieldValue(defaultState.current.nameFieldValue);
@@ -66,19 +27,10 @@ function Das() {
   const handleSave = useCallback(() => {
     defaultState.current.nameFieldValue = nameFieldValue;
     defaultState.current.emailFieldValue = emailFieldValue;
-
     setIsDirty(false);
     setToastActive(true);
     setStoreName(defaultState.current.nameFieldValue);
   }, [emailFieldValue, nameFieldValue]);
-  const handleNameFieldChange = useCallback((value) => {
-    setNameFieldValue(value);
-    value && setIsDirty(true);
-  }, []);
-  const handleEmailFieldChange = useCallback((value) => {
-    setEmailFieldValue(value);
-    value && setIsDirty(true);
-  }, []);
   const handleSearchResultsDismiss = useCallback(() => {
     setSearchActive(false);
     setSearchValue("");
@@ -106,10 +58,7 @@ function Das() {
     () => setIsLoading((isLoading) => !isLoading),
     []
   );
-  const toggleModalActive = useCallback(
-    () => setModalActive((modalActive) => !modalActive),
-    []
-  );
+ 
 
   const toastMarkup = toastActive ? (
     <Toast onDismiss={toggleToastActive} content="Changes saved" />
@@ -189,17 +138,8 @@ function Das() {
             icon: HomeMajor,
             onClick: toggleIsLoading,
           },
-          {
-            label: "Dashboard Pixel Orders",
-            icon: OrdersMajor,
-            onClick: toggleIsLoading,
-          },
         ]}
-        action={{
-          icon: ConversationMinor,
-          accessibilityLabel: "Contact support",
-          onClick: toggleModalActive,
-        }}
+      
       />
     </Navigation>
   );
@@ -220,44 +160,16 @@ function Das() {
 
   const pageMarkup = isLoading ? loadingPageMarkup : actualPageMarkup;
 
-  const modalMarkup = (
-    <Modal
-      open={modalActive}
-      onClose={toggleModalActive}
-      title="Contact support"
-      primaryAction={{
-        content: "Send",
-        onAction: toggleModalActive,
-      }}
-    >
-      <Modal.Section>
-        <FormLayout>
-          <TextField
-            label="Subject"
-            value={supportSubject}
-            onChange={handleSubjectChange}
-            autoComplete="off"
-          />
-          <TextField
-            label="Message"
-            value={supportMessage}
-            onChange={handleMessageChange}
-            autoComplete="off"
-            multiline
-          />
-        </FormLayout>
-      </Modal.Section>
-    </Modal>
-  );
+ 
 
   const logo = {
     width: 124,
     topBarSource:
-      "https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999",
+      "https://d3vlhkqyz4y38a.cloudfront.net/skin/frontend/cedcomnew/default/images/header/logo/ced-logo-web.svg",
     contextualSaveBarSource:
-      "https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-gray.svg?6215648040070010999",
+      "https://d3vlhkqyz4y38a.cloudfront.net/skin/frontend/cedcomnew/default/images/header/logo/ced-logo-web.svg",
     url: "http://jadedpixel.com",
-    accessibilityLabel: "Jaded Pixel",
+    accessibilityLabel: "Cedcommerce",
   };
 
   return (
@@ -309,7 +221,6 @@ function Das() {
           {loadingMarkup}
           {pageMarkup}
           {toastMarkup}
-          {modalMarkup}
         </Frame>
       </AppProvider>
     </div>
