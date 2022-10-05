@@ -274,37 +274,39 @@ function GridDataTable() {
           title="Get shopify details of a specific user on Grid"
         >
           <TextContainer>
-            <Text variant="bodyLg" as="h3" fontWeight="bold">
-              {" "}
-              Name:{viewdata?.shopify?.name}
+            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
+              Name:  {viewdata?.shopify?.name}
             </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold">
-              Address:{viewdata?.shopify?.address1}
+            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
+              Address:  {viewdata?.shopify?.address1}
             </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold">
-              City:{viewdata?.shopify?.city}
+            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
+              City:  {viewdata?.shopify?.city}
             </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold">
-              Email: {viewdata?.shopify?.customer_email}
+            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
+              Email:  {viewdata?.shopify?.customer_email}
             </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold">
-              Plan Display Name:{viewdata?.shopify?.plan_display_name}
+            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
+              Plan Display Name:  {viewdata?.shopify?.plan_display_name}
             </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold">
-              Phone:{viewdata?.shopify?.phone}
+            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
+              Phone:  {viewdata?.shopify?.phone}
             </Text>
+            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
+
             {viewdata.length !== 0 &&
               Object.values(viewdata?.shopify?.warehouses)?.map((house, i) => {
                 return (
                   <Checkbox
-                    key={house.id}
-                    label={house.name}
-                    checked={checked[i]}
-                    onChange={() => handleChange(i)}
+                  key={house.id}
+                  label={house.name}
+                  checked={checked[i]}
+                  onChange={() => handleChange(i)}
                   />
-                );
-              })}
-            <Text variant="bodyLg" as="h3" fontWeight="bold">
+                  );
+                })}
+                </Text>
+            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
               Domain:
               <Link url={"https://" + viewdata?.shopify?.myshopify_domain}>
                 {viewdata?.shopify?.myshopify_domain}
