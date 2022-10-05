@@ -34,12 +34,12 @@ function GridDataTable() {
   let Token = tokenData?.data?.token;
   const [checked, setChecked] = useState([]);
   const handleChange = (index) => {
-    const newChecked = checked.map((check,i) => {
+    const newChecked = checked.map((check, i) => {
       if (index === i) return !check;
       return check;
-    })
-    setChecked(newChecked)
-  }
+    });
+    setChecked(newChecked);
+  };
   // console.log(checked);
   // console.table(inputarr);
   // console.table(val);
@@ -152,7 +152,7 @@ function GridDataTable() {
                     item.shopify.warehouses
                   )?.length;
                   // console.log(warehousesLength);
-                  setChecked(new Array(warehousesLength).fill(true))
+                  setChecked(new Array(warehousesLength).fill(true));
                   setActivator(true);
                   setViewdata(item);
                 }}
@@ -273,40 +273,41 @@ function GridDataTable() {
           }}
           title="Get shopify details of a specific user on Grid"
         >
-          <TextContainer>
-            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
-              Name:  {viewdata?.shopify?.name}
+          <TextContainer alignment="center">
+            <Text variant="bodyLg" as="h3" fontWeight="bold" alignment="ceter">
+              Name: {viewdata?.shopify?.name}
             </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
-              Address:  {viewdata?.shopify?.address1}
+            <Text variant="bodyLg" as="h3" fontWeight="bold" alignment="ceter">
+              Address: {viewdata?.shopify?.address1}
             </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
-              City:  {viewdata?.shopify?.city}
+            <Text variant="bodyLg" as="h3" fontWeight="bold" alignment="ceter">
+              City: {viewdata?.shopify?.city}
             </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
-              Email:  {viewdata?.shopify?.customer_email}
+            <Text variant="bodyLg" as="h3" fontWeight="bold" alignment="ceter">
+              Email: {viewdata?.shopify?.customer_email}
             </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
-              Plan Display Name:  {viewdata?.shopify?.plan_display_name}
+            <Text variant="bodyLg" as="h3" fontWeight="bold" alignment="ceter">
+              Plan Display Name: {viewdata?.shopify?.plan_display_name}
             </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
-              Phone:  {viewdata?.shopify?.phone}
+            <Text variant="bodyLg" as="h3" fontWeight="bold" alignment="ceter">
+              Phone: {viewdata?.shopify?.phone}
             </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
-
-            {viewdata.length !== 0 &&
-              Object.values(viewdata?.shopify?.warehouses)?.map((house, i) => {
-                return (
-                  <Checkbox
-                  key={house.id}
-                  label={house.name}
-                  checked={checked[i]}
-                  onChange={() => handleChange(i)}
-                  />
-                  );
-                })}
-                </Text>
-            <Text variant="bodyLg" as="h3" fontWeight="bold" color="success" alignment="start">
+            <Text variant="bodyLg" as="h3" fontWeight="bold" alignment="ceter">
+              {viewdata.length !== 0 &&
+                Object.values(viewdata?.shopify?.warehouses)?.map(
+                  (house, i) => {
+                    return (
+                      <Checkbox
+                        key={house.id}
+                        label={house.name}
+                        checked={checked[i]}
+                        onChange={() => handleChange(i)}
+                      />
+                    );
+                  }
+                )}
+            </Text>
+            <Text variant="bodyLg" as="h3" fontWeight="bold" alignment="center">
               Domain:
               <Link url={"https://" + viewdata?.shopify?.myshopify_domain}>
                 {viewdata?.shopify?.myshopify_domain}
