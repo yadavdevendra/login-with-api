@@ -6,12 +6,16 @@ import {
   Select,
   Grid,
   Button,
-  Spinner,
   DisplayText,
   Text,
   TextField,
+  SkeletonBodyText,
+  SkeletonPage,
+  Modal,
+  TextContainer,
+  Checkbox,
 } from "@shopify/polaris";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 function GridDataTable() {
   const [ActivePage, setActivePage] = useState(1);
@@ -20,11 +24,17 @@ function GridDataTable() {
   const [inputarr, setInputarr] = useState([]);
   const [count, setCount] = useState(0);
   const [active, setActive] = useState(true); // spinnner
+  const [activator, setActivator] = useState(false);
+  const [viewdata, setViewdata] = useState([]);
+  //  const [active, setActive] = useState(true);
   const [val, setVal] = useState([]);
   let tokenData = JSON.parse(sessionStorage.getItem("data"));
   let Token = tokenData?.data?.token;
-  console.table(inputarr);
-  console.table(val);
+   const [checked, setChecked] = useState(true);
+   const handleChange = useCallback((newChecked) => setChecked(newChecked), []);
+  // console.table(inputarr);
+  // console.table(val);
+  console.log(viewdata);
   const options = [
     { label: "Row Per Page:10", value: "10" },
     { label: "Row Per Page:20", value: "20" },
@@ -46,6 +56,7 @@ function GridDataTable() {
       "Updated at",
       "Created at",
       "Shops myShopify domain",
+      "Action",
     ],
     [
       "id",
@@ -59,30 +70,41 @@ function GridDataTable() {
     ],
   ];
   // console.log("Euals", inputarr);
+  // console.log("viewtable",viewTable);
+  console.log(viewdata);
   const head = heading[0].map((item, i) => {
+    // console.log("item",item);
     return (
       <>
         <DisplayText element="p" size="small">
           {item}
         </DisplayText>
-        <Select
-          options={options1}
-          value={val[i]}
-          onChange={(e) => {
-            let newval = [...val];
-            newval[i] = e;
-            setVal(newval);
-          }}
-        />
-        <TextField
-          placeholder={item}
-          value={inputarr[i]}
-          onChange={(e) => {
-            let newinputarr = [...inputarr];
-            newinputarr[i] = e;
-            setInputarr(newinputarr);
-          }}
-        />
+        {item != "Action" ? (
+          <Select
+            options={options1}
+            value={val[i]}
+            onChange={(e) => {
+              let newval = [...val];
+              newval[i] = e;
+              setVal(newval);
+            }}
+          />
+        ) : (
+          ""
+        )}
+        {item != "Action" ? (
+          <TextField
+            placeholder={item}
+            value={inputarr[i]}
+            onChange={(e) => {
+              let newinputarr = [...inputarr];
+              newinputarr[i] = e;
+              setInputarr(newinputarr);
+            }}
+          />
+        ) : (
+          ""
+        )}
       </>
     );
   });
@@ -98,27 +120,38 @@ function GridDataTable() {
       .then((x) => x.json())
       .then((data) => {
         // console.log(data);
-        setCount(data.count);
+        setCount(data.data.count);
         data?.data?.rows.map((item) => {
-          // use the for loop
+          //// use the for loop
           // let arr = [];
           // for (let i = 0; i < heading[1].length; i++) {
           //   arr[i] = item[heading[1][i]];
+          //   arr.push(<Button>View</Button>);
           // }
-          // use the map
+          //// use the map
           // let arr = heading[1].map((_, i) => {
           //   return item[heading[1][i]];
           // });
           // use the forEach method
-           let arr = [];
-           heading[1].forEach((_, i) => {
-             arr.push(item[heading[1][i]]);
-           });
+          let arr = [];
+          heading[1].forEach((_, i) => {
+            arr[i] = item[heading[1][i]];
+            arr.push(
+              <Button
+                onClick={() => {
+                  setActivator(true);
+                  setViewdata(item);
+                }}
+                primary
+              >
+                View Details
+              </Button>
+            );
+          });
           temp.push(arr);
-
         });
         // console.log(temp, "temp");
-        setInputarr(new Array(temp.length).fill(""));
+        // setInputarr(new Array(temp.length).fill(""));
         setViewTable(temp);
         setActive(false);
       });
@@ -128,6 +161,9 @@ function GridDataTable() {
   const handleSelectChange = (value) => {
     setSelectRowPerPage(value);
   };
+  // const handleChange =(()=>{
+  //   setActivator(true);
+  // })
 
   // Table Row
 
@@ -138,14 +174,14 @@ function GridDataTable() {
           Data Grid......
         </Text>
         <Text variant="headingLg" as="h1" size="large" alignment="start">
-          {`showing from ${(ActivePage - 1) * SelectRowPerPage + 1} to ${
-            ActivePage * SelectRowPerPage
-          } of Users`}
+          {`showing from ${
+            (ActivePage - 1) * (SelectRowPerPage + 1) <= count
+          } to ${ActivePage * SelectRowPerPage < count} of ${count} Users`}
         </Text>
 
         <Card sectioned>
           <Grid columnSpan={{ xs: 6, sm: 3, md: 3, lg: 6, xl: 6 }}>
-            <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
+            <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 1 }}>
               <Pagination
                 style={{
                   height: "60px",
@@ -194,27 +230,57 @@ function GridDataTable() {
           </Grid>
         </Card>
 
-       
-          <Card sectioned>
-            <DataTable
-              columnContentTypes={[
-                "numeric",
-                "text",
-                "text",
-                "text",
-                "text",
-                "text",
-                "text",
-                "text",
-              ]}
-              headings={head}
-              rows={viewTable}
-            />
-          </Card>
+        <Card>
+          <Grid>
+            <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 12, xl: 4 }}>
+              <DataTable
+                columnContentTypes={[
+                  "numeric",
+                  "text",
+                  "text",
+                  "text",
+                  "text",
+                  "text",
+                  "text",
+                  "text",
+                ]}
+                headings={head}
+                rows={viewTable}
+              />
+            </Grid.Cell>
+          </Grid>
+        </Card>
         {active && (
-          <Spinner accessibilityLabel="Spinner example" size="large" />
+          <SkeletonPage primaryAction>
+            <SkeletonBodyText />
+          </SkeletonPage>
         )}
       </Page>
+      <div style={{ height: "500px" }}>
+        <Modal
+          open={activator}
+          onClose={() => {
+            setActivator(false);
+          }}
+          title="Get shopify details of a specific user on Grid"
+        >
+          <TextContainer>
+            <Text title=""> Name:{viewdata?.shopify?.name}</Text>
+            <Text>Address:{viewdata?.shopify?.address1}</Text>
+            <Text>City:{viewdata?.shopify?.city}</Text>
+            <Text>Email: {viewdata?.shopify?.customer_email}</Text>
+            <Text>
+              Plan Display Name:{viewdata?.shopify?.plan_display_name}
+            </Text>
+            <Text>Phone:{viewdata?.shopify?.phone}</Text>
+            <Checkbox
+              label={viewdata?.shopify?.warehouses[0]?.name}
+              checked={checked}
+              onChange={handleChange}
+            />
+          </TextContainer>
+        </Modal>
+      </div>
     </>
   );
 }
