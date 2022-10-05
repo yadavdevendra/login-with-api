@@ -14,6 +14,8 @@ import {
   Modal,
   TextContainer,
   Checkbox,
+  Link,
+  Banner,
 } from "@shopify/polaris";
 import React, { useEffect, useState, useCallback } from "react";
 
@@ -30,11 +32,18 @@ function GridDataTable() {
   const [val, setVal] = useState([]);
   let tokenData = JSON.parse(sessionStorage.getItem("data"));
   let Token = tokenData?.data?.token;
-   const [checked, setChecked] = useState(true);
-   const handleChange = useCallback((newChecked) => setChecked(newChecked), []);
+  const [checked, setChecked] = useState([]);
+  const handleChange = (index) => {
+    const newChecked = checked.map((check,i) => {
+      if (index === i) return !check;
+      return check;
+    })
+    setChecked(newChecked)
+  }
+  // console.log(checked);
   // console.table(inputarr);
   // console.table(val);
-  console.log(viewdata);
+  // console.log(viewdata);
   const options = [
     { label: "Row Per Page:10", value: "10" },
     { label: "Row Per Page:20", value: "20" },
@@ -71,7 +80,7 @@ function GridDataTable() {
   ];
   // console.log("Euals", inputarr);
   // console.log("viewtable",viewTable);
-  console.log(viewdata);
+  // console.log(viewdata);
   const head = heading[0].map((item, i) => {
     // console.log("item",item);
     return (
@@ -139,6 +148,11 @@ function GridDataTable() {
             arr.push(
               <Button
                 onClick={() => {
+                  let warehousesLength = Object.keys(
+                    item.shopify.warehouses
+                  )?.length;
+                  // console.log(warehousesLength);
+                  setChecked(new Array(warehousesLength).fill(true))
                   setActivator(true);
                   setViewdata(item);
                 }}
@@ -161,11 +175,6 @@ function GridDataTable() {
   const handleSelectChange = (value) => {
     setSelectRowPerPage(value);
   };
-  // const handleChange =(()=>{
-  //   setActivator(true);
-  // })
-
-  // Table Row
 
   return (
     <>
@@ -265,19 +274,42 @@ function GridDataTable() {
           title="Get shopify details of a specific user on Grid"
         >
           <TextContainer>
-            <Text title=""> Name:{viewdata?.shopify?.name}</Text>
-            <Text>Address:{viewdata?.shopify?.address1}</Text>
-            <Text>City:{viewdata?.shopify?.city}</Text>
-            <Text>Email: {viewdata?.shopify?.customer_email}</Text>
-            <Text>
+            <Text variant="heading2xl" as="h3">
+              {" "}
+              Name:{viewdata?.shopify?.name}
+            </Text>
+            <Text variant="heading2xl" as="h3">
+              Address:{viewdata?.shopify?.address1}
+            </Text>
+            <Text variant="heading2xl" as="h3">
+              City:{viewdata?.shopify?.city}
+            </Text>
+            <Text variant="heading2xl" as="h3">
+              Email: {viewdata?.shopify?.customer_email}
+            </Text>
+            <Text variant="heading2xl" as="h3">
               Plan Display Name:{viewdata?.shopify?.plan_display_name}
             </Text>
-            <Text>Phone:{viewdata?.shopify?.phone}</Text>
-            <Checkbox
-              label={viewdata?.shopify?.warehouses[0]?.name}
-              checked={checked}
-              onChange={handleChange}
-            />
+            <Text variant="heading2xl" as="h3">
+              Phone:{viewdata?.shopify?.phone}
+            </Text>
+            {viewdata.length !== 0 &&
+              Object.values(viewdata?.shopify?.warehouses)?.map((house, i) => {
+                return (
+                  <Checkbox
+                    key={house.id}
+                    label={house.name}
+                    checked={checked[i]}
+                    onChange={() => handleChange(i)}
+                  />
+                );
+              })}
+            <Text variant="heading2xl" as="h3">
+              Domain:
+              <Link url={"https://" + viewdata?.shopify?.myshopify_domain}>
+                {viewdata?.shopify?.myshopify_domain}
+              </Link>
+            </Text>
           </TextContainer>
         </Modal>
       </div>
