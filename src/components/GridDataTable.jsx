@@ -274,23 +274,23 @@ function GridDataTable() {
           title="Get shopify details of a specific user on Grid"
         >
           <TextContainer>
-            <Text variant="heading2xl" as="h3">
+            <Text variant="bodyLg" as="h3" fontWeight="bold">
               {" "}
               Name:{viewdata?.shopify?.name}
             </Text>
-            <Text variant="heading2xl" as="h3">
+            <Text variant="bodyLg" as="h3" fontWeight="bold">
               Address:{viewdata?.shopify?.address1}
             </Text>
-            <Text variant="heading2xl" as="h3">
+            <Text variant="bodyLg" as="h3" fontWeight="bold">
               City:{viewdata?.shopify?.city}
             </Text>
-            <Text variant="heading2xl" as="h3">
+            <Text variant="bodyLg" as="h3" fontWeight="bold">
               Email: {viewdata?.shopify?.customer_email}
             </Text>
-            <Text variant="heading2xl" as="h3">
+            <Text variant="bodyLg" as="h3" fontWeight="bold">
               Plan Display Name:{viewdata?.shopify?.plan_display_name}
             </Text>
-            <Text variant="heading2xl" as="h3">
+            <Text variant="bodyLg" as="h3" fontWeight="bold">
               Phone:{viewdata?.shopify?.phone}
             </Text>
             {viewdata.length !== 0 &&
@@ -304,7 +304,7 @@ function GridDataTable() {
                   />
                 );
               })}
-            <Text variant="heading2xl" as="h3">
+            <Text variant="bodyLg" as="h3" fontWeight="bold">
               Domain:
               <Link url={"https://" + viewdata?.shopify?.myshopify_domain}>
                 {viewdata?.shopify?.myshopify_domain}
