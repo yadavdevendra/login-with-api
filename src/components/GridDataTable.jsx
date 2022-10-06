@@ -212,6 +212,12 @@ function GridDataTable() {
   const handleSelectChange = (value) => {
     setSelectRowPerPage(value);
   };
+  function resetbtn() {
+     setInputarr("");
+     setQuery("");
+     setVal("");
+  }
+ 
 
   return (
     <>
@@ -221,8 +227,8 @@ function GridDataTable() {
         </Text>
         <Text variant="headingLg" as="h1" size="large" alignment="start">
           {`showing from ${
-            (ActivePage - 1) * (SelectRowPerPage + 1) <= count
-          } to ${ActivePage * SelectRowPerPage < count} of ${count} Users`}
+            (ActivePage - 1) * (SelectRowPerPage + 1)
+          } to ${ActivePage * SelectRowPerPage} of ${count} Users`}
         </Text>
 
         <Card sectioned>
@@ -265,7 +271,7 @@ function GridDataTable() {
               />
             </Grid.Cell>
             <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
-              <Button
+              <Button onClick={resetbtn}
                 style={{
                   height: "60px",
                 }}
