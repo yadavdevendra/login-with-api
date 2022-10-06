@@ -8,7 +8,7 @@ import Das from "./Das";
 export const Dashboard = () => {
   const [tclose, setTclose] = useState(false);
   let { state } = useLocation();
-  // console.log(state);
+  console.log(state);
 
   return (
     <div className="das">

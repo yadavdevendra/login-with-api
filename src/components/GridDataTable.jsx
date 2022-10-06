@@ -15,9 +15,12 @@ import {
   TextContainer,
   Checkbox,
   Link,
-  Banner,
+  Stack,
+  Loading,
+  Form,
 } from "@shopify/polaris";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
+import RemovableTagWithLink from "./RemovableTagWithLink";
 
 function GridDataTable() {
   const [ActivePage, setActivePage] = useState(1);
@@ -28,10 +31,11 @@ function GridDataTable() {
   const [active, setActive] = useState(true); // spinnner
   const [activator, setActivator] = useState(false);
   const [viewdata, setViewdata] = useState([]);
-  //  const [active, setActive] = useState(true);
+  const [query, setQuery] = useState("");
   const [val, setVal] = useState([]);
   let tokenData = JSON.parse(sessionStorage.getItem("data"));
   let Token = tokenData?.data?.token;
+
   const [checked, setChecked] = useState([]);
   const handleChange = (index) => {
     const newChecked = checked.map((check, i) => {
@@ -51,10 +55,14 @@ function GridDataTable() {
     { label: "Row Per Page:100", value: "100" },
   ];
   const options1 = [
-    { label: "Equals", value: "100" },
-    { label: "Row ", value: "20" },
-    { label: "Page ", value: "50" },
+    { label: "Equals", value: "1" },
+    { label: "Not Equals", value: "2" },
+    { label: "Contains", value: "3" },
+    { label: "Does Not Contains", value: "4" },
+    { label: "Starts With", value: "5" },
+    { label: "Ends With", value: "6" },
   ];
+
   const heading = [
     [
       "User_Id",
@@ -75,12 +83,22 @@ function GridDataTable() {
       "shopify_plan",
       "updated_at",
       "created_at",
-      "username",
+      "shop_url",
     ],
+  ];
+  const filterarr = [
+    "user_id",
+    "",
+    "shops.domain",
+    "shops.email",
+    "shops.plan_name",
+    "",
+    "",
+    "shops.myshopify_domain",
   ];
   // console.log("Euals", inputarr);
   // console.log("viewtable",viewTable);
-  // console.log(viewdata);
+  console.log(viewdata);
   const head = heading[0].map((item, i) => {
     // console.log("item",item);
     return (
@@ -102,25 +120,44 @@ function GridDataTable() {
           ""
         )}
         {item != "Action" ? (
-          <TextField
-            placeholder={item}
-            value={inputarr[i]}
-            onChange={(e) => {
-              let newinputarr = [...inputarr];
-              newinputarr[i] = e;
-              setInputarr(newinputarr);
-            }}
-          />
+          <Form onSubmit={() => handlefilters()} preventDefault>
+            <TextField
+              placeholder={item}
+              value={inputarr[i]}
+              onChange={(e) => {
+                let newinputarr = [...inputarr];
+                newinputarr[i] = e;
+                setInputarr(newinputarr);
+              }}
+            />
+          </Form>
         ) : (
           ""
         )}
       </>
     );
   });
+  function handlefilters() {
+    // let query = `&filter[user_id][${val}]=${inputarr}`;
+    // setQuery(query);
+    let query = "";
+    filterarr.map((fildata, i) => {
+      if (
+        (val[i] !== "" && val[i] !== undefined) ||
+        (inputarr[i] !== "" && inputarr[i] !== undefined)
+      ) {
+        query += `&filter[${fildata}][${val[i]}]=${inputarr[i]}`;
+      }
+    });
+    console.log(val, inputarr);
+    console.log(query);
+    setQuery(query);
+  }
+
   useEffect(() => {
     let temp = [];
     fetch(
-      `https://fbapi.sellernext.com/frontend/admin/getAllUsers?activePage=${ActivePage}&count=${SelectRowPerPage}`,
+      `https://fbapi.sellernext.com/frontend/admin/getAllUsers?activePage=${ActivePage}&count=${SelectRowPerPage}${query}`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${Token}` },
@@ -128,8 +165,8 @@ function GridDataTable() {
     )
       .then((x) => x.json())
       .then((data) => {
-        // console.log(data);
-        setCount(data.data.count);
+        console.log(data);
+        setCount(data?.data?.count);
         data?.data?.rows.map((item) => {
           //// use the for loop
           // let arr = [];
@@ -164,12 +201,12 @@ function GridDataTable() {
           });
           temp.push(arr);
         });
-        // console.log(temp, "temp");
+        console.log(temp, "temp");
         // setInputarr(new Array(temp.length).fill(""));
         setViewTable(temp);
         setActive(false);
       });
-  }, [ActivePage, SelectRowPerPage]);
+  }, [ActivePage, SelectRowPerPage, query]);
 
   //Select Row PerPage Options
   const handleSelectChange = (value) => {
@@ -238,10 +275,9 @@ function GridDataTable() {
             </Grid.Cell>
           </Grid>
         </Card>
-
         <Card>
           <Grid>
-            <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 12, xl: 4 }}>
+            <Grid.Cell columnSpan={{ xs: 6, sm: 6, md: 6, lg: 12, xl: 6 }}>
               <DataTable
                 columnContentTypes={[
                   "numeric",

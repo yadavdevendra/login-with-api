@@ -33,7 +33,7 @@ function Login() {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          // console.log("api data", data);
+          console.log("api data", data);
           setError(data.message);
           setActive(false);
           sessionStorage.setItem("data", JSON.stringify(data));
