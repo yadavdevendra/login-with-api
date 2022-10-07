@@ -152,6 +152,7 @@ function GridDataTable() {
     console.log(val, inputarr);
     console.log(query);
     setQuery(query);
+    setActivePage(1)
   }
 
   useEffect(() => {
@@ -213,9 +214,9 @@ function GridDataTable() {
     setSelectRowPerPage(value);
   };
   function resetbtn() {
-     setInputarr("");
+    //  setInputarr("");
      setQuery("");
-     setVal("");
+    //  setVal("");
   }
  
 
@@ -260,7 +261,7 @@ function GridDataTable() {
             </Grid.Cell>
             <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
               <Select
-                placeholder="Select Rows Per Page"
+                // placeholder="Select Rows Per Page"
                 style={{
                   height: "60px",
                   background: "aquamarine",
@@ -278,6 +279,7 @@ function GridDataTable() {
               >
                 View Columns
               </Button>
+              {!query && <Loading/>}
             </Grid.Cell>
           </Grid>
         </Card>
