@@ -110,6 +110,7 @@ function GridDataTable() {
         </DisplayText>
         {item != "Action" ? (
           <Select
+          placeholder="select"
             options={options1}
             value={val[i]}
             onChange={(e) => {
@@ -142,18 +143,21 @@ function GridDataTable() {
   function handlefilters() {
     // let query = `&filter[user_id][${val}]=${inputarr}`;
     // setQuery(query);
-    let query = "";
+    let qry = "";
     filterarr.map((fildata, i) => {
       if (
         (val[i] !== "" && val[i] !== undefined) ||
         (inputarr[i] !== "" && inputarr[i] !== undefined)
       ) {
-        query += `&filter[${fildata}][${val[i]}]=${inputarr[i]}`;
+        qry += `&filter[${fildata}][${val[i]}]=${inputarr[i]}`;
+      }
+      if(val[i]==="" || inputarr[i] === ""){
+        qry = "";
       }
     });
-    console.log(val, inputarr);
-    console.log(query);
-    setQuery(query);
+    // console.log(val, inputarr);
+    // console.log(qry);
+    setQuery(qry);
     setActivePage(1);
   }
 
@@ -234,7 +238,7 @@ function GridDataTable() {
           Data Grid......
         </Text>
         <Text variant="headingLg" as="h1" size="large" alignment="start">
-          {`showing from ${(ActivePage - 1) * (SelectRowPerPage + 1)} to ${
+          {`showing from ${((ActivePage-1) * SelectRowPerPage + 1)} to ${
             ActivePage * SelectRowPerPage
           } of ${count} Users`}
         </Text>
@@ -268,7 +272,7 @@ function GridDataTable() {
             </Grid.Cell>
             <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
               <Select
-                // placeholder="Select Rows Per Page"
+              
                 style={{
                   height: "60px",
                   background: "aquamarine",

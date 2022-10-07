@@ -63,11 +63,18 @@ function Das() {
   const toastMarkup = toastActive ? (
     <Toast onDismiss={toggleToastActive} content="Changes saved" />
   ) : null;
-
+ const logout = () => {
+   sessionStorage.removeItem("data");
+  navigate('/',{replace: true})
+ };
   const userMenuActions = [
     {
-      items: [{ content: "Community forums" }],
+      items: [{ content: <Button onClick={logout}> Log out</Button> }],
     },
+    // {
+    //   items: [{ content: <Button 
+    //     onClick={()=>sessionStorage.removeItem("data")}> Log out</Button> }],
+    // },
   ];
 
   const contextualSaveBarMarkup = isDirty ? (
