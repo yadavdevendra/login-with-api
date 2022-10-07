@@ -33,6 +33,7 @@ function GridDataTable() {
   const [viewdata, setViewdata] = useState([]);
   const [query, setQuery] = useState("");
   const [val, setVal] = useState([]);
+  const [isLoading,setIsLoading] = useState(false)
   let tokenData = JSON.parse(sessionStorage.getItem("data"));
   let Token = tokenData?.data?.token;
 
@@ -98,7 +99,8 @@ function GridDataTable() {
   ];
   // console.log("Euals", inputarr);
   // console.log("viewtable",viewTable);
-  console.log(viewdata);
+  // console.log(viewdata);
+  // const loadingMark = isLoading ? null : <Loading />;
   const head = heading[0].map((item, i) => {
     // console.log("item",item);
     return (
@@ -152,11 +154,13 @@ function GridDataTable() {
     console.log(val, inputarr);
     console.log(query);
     setQuery(query);
-    setActivePage(1)
+    setActivePage(1);
   }
 
   useEffect(() => {
+    lodinghandle()
     let temp = [];
+    setActive(true);
     fetch(
       `https://fbapi.sellernext.com/frontend/admin/getAllUsers?activePage=${ActivePage}&count=${SelectRowPerPage}${query}`,
       {
@@ -166,6 +170,7 @@ function GridDataTable() {
     )
       .then((x) => x.json())
       .then((data) => {
+        setActive(false);
         console.log(data);
         setCount(data?.data?.count);
         data?.data?.rows.map((item) => {
@@ -214,11 +219,13 @@ function GridDataTable() {
     setSelectRowPerPage(value);
   };
   function resetbtn() {
-    //  setInputarr("");
-     setQuery("");
-    //  setVal("");
+    setInputarr("");
+    setQuery("");
+    setVal("");
   }
- 
+  function lodinghandle(){
+    setIsLoading((isLoading)=>(!isLoading))
+  }
 
   return (
     <>
@@ -227,9 +234,9 @@ function GridDataTable() {
           Data Grid......
         </Text>
         <Text variant="headingLg" as="h1" size="large" alignment="start">
-          {`showing from ${
-            (ActivePage - 1) * (SelectRowPerPage + 1)
-          } to ${ActivePage * SelectRowPerPage} of ${count} Users`}
+          {`showing from ${(ActivePage - 1) * (SelectRowPerPage + 1)} to ${
+            ActivePage * SelectRowPerPage
+          } of ${count} Users`}
         </Text>
 
         <Card sectioned>
@@ -272,18 +279,19 @@ function GridDataTable() {
               />
             </Grid.Cell>
             <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
-              <Button onClick={resetbtn}
+              <Button
+                onClick={resetbtn}
                 style={{
                   height: "60px",
                 }}
               >
                 View Columns
               </Button>
-              {!query && <Loading/>}
+             { isLoading ? null : <Loading />}
             </Grid.Cell>
           </Grid>
         </Card>
-        <Card>
+        {/* <Card>
           <Grid>
             <Grid.Cell columnSpan={{ xs: 6, sm: 6, md: 6, lg: 12, xl: 6 }}>
               <DataTable
@@ -298,15 +306,37 @@ function GridDataTable() {
                   "text",
                 ]}
                 headings={head}
-                rows={viewTable}
+               
               />
             </Grid.Cell>
           </Grid>
-        </Card>
-        {active && (
+        </Card> */}
+
+        {active == true ? (
           <SkeletonPage primaryAction>
             <SkeletonBodyText />
           </SkeletonPage>
+        ) : (
+          <Card>
+            <Grid>
+              <Grid.Cell columnSpan={{ xs: 6, sm: 6, md: 6, lg: 12, xl: 6 }}>
+                <DataTable
+                  columnContentTypes={[
+                    "numeric",
+                    "text",
+                    "text",
+                    "text",
+                    "text",
+                    "text",
+                    "text",
+                    "text",
+                  ]}
+                  headings={head}
+                  rows={viewTable}
+                />
+              </Grid.Cell>
+            </Grid>
+          </Card>
         )}
       </Page>
       <div style={{ height: "500px" }}>
